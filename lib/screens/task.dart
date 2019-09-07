@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey_flutter/models/task_list.dart';
 import 'package:todoey_flutter/screens/add_task_screen.dart';
 import 'package:todoey_flutter/widgets/task_list.dart';
 
@@ -60,11 +62,13 @@ class _TaskScreenState extends State<TaskScreen> {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                Text(
-                  '12 tasks',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
+                Consumer<TaskList>(
+                  builder: (context, taskListData, _) => Text(
+                    '${taskListData.taskCount} tasks',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
                   ),
                 ),
               ],

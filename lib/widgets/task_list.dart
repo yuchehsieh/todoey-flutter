@@ -13,7 +13,7 @@ class TaskListWidget extends StatelessWidget {
             value: taskListData.tasks[index],
             child: TaskTile(),
           ),
-          itemCount: taskListData.tasks.length,
+          itemCount: taskListData.taskCount,
         );
       }),
     );

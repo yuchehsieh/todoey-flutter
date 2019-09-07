@@ -12,6 +12,10 @@ class TaskList with ChangeNotifier {
     return [..._tasks];
   }
 
+  int get taskCount {
+    return _tasks.length;
+  }
+
   void createNewTask(String taskTitle) {
     _tasks.add(Task(name: taskTitle));
     notifyListeners();
