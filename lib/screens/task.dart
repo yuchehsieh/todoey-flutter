@@ -1,9 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todoey_flutter/models/task.dart';
 import 'package:todoey_flutter/screens/add_task_screen.dart';
 import 'package:todoey_flutter/widgets/task_list.dart';
 
-class TaskScreen extends StatelessWidget {
+class TaskScreen extends StatefulWidget {
+  @override
+  _TaskScreenState createState() => _TaskScreenState();
+}
+
+class _TaskScreenState extends State<TaskScreen> {
+  List<Task> tasks = [
+    Task(name: 'Buy milk'),
+    Task(name: 'Buy eggs'),
+    Task(name: 'Buy bread'),
+  ];
+
+  void createNewTask(String taskTitle) {
+    setState(() {
+      tasks.add(Task(name: taskTitle));
+    });
+  }
+
+  void toggleTaskDone(int index) {
+    setState(() {
+      tasks[index].toggleDone();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,7 +36,9 @@ class TaskScreen extends StatelessWidget {
         onPressed: () {
           showModalBottomSheet(
             context: context,
-            builder: (_) => AddTaskScreen(),
+            builder: (_) => AddTaskScreen(
+              createNewTask: createNewTask,
+            ),
 
             /// OR using shape: RoundedRectangleBorder
           );
@@ -56,7 +82,7 @@ class TaskScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '12 Tasks',
+                  '${tasks.length.toString()} tasks',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -77,7 +103,10 @@ class TaskScreen extends StatelessWidget {
                   topLeft: Radius.circular(30.0),
                 ),
               ),
-              child: TaskList(),
+              child: TaskList(
+                tasks: tasks,
+                toggleTaskDone: toggleTaskDone,
+              ),
             ),
           ),
         ],

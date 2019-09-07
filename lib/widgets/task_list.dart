@@ -2,17 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:todoey_flutter/models/task.dart';
 import 'package:todoey_flutter/widgets/task_tile.dart';
 
-class TaskList extends StatefulWidget {
-  @override
-  _TaskListState createState() => _TaskListState();
-}
+class TaskList extends StatelessWidget {
+  TaskList({this.tasks, this.toggleTaskDone});
 
-class _TaskListState extends State<TaskList> {
-  List<Task> tasks = [
-    Task(name: 'Buy milk'),
-    Task(name: 'Buy eggs'),
-    Task(name: 'Buy bread'),
-  ];
+  final List<Task> tasks;
+  final Function toggleTaskDone;
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +14,7 @@ class _TaskListState extends State<TaskList> {
       itemBuilder: (_, index) => TaskTile(
         taskTitle: tasks[index].name,
         isChecked: tasks[index].isDone,
-        toggleChecked: ((_) {
-          setState(() {
-            tasks[index].toggleDone();
-          });
-        }),
+        toggleChecked: (_) => toggleTaskDone(index),
       ),
       itemCount: tasks.length,
     );
