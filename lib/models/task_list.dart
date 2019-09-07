@@ -26,4 +26,16 @@ class TaskList with ChangeNotifier {
     _tasks.add(Task(name: taskTitle));
     notifyListeners();
   }
+
+  /// Teacher's version of toggle the checking state
+  /// goal is to keep TaskTile simple
+  void updateTask(Task task) {
+    task.toggleDone();
+    notifyListeners();
+  }
+
+  /// Compare to my way of doing this, (Learning from Teacher Max)
+  /// I choose expose the Task out,
+  /// and TaskTile just directly to read and use the method
+  /// which belongs to Task.
 }
