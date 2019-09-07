@@ -39,7 +39,9 @@ class AddTaskScreen extends StatelessWidget {
                 child: dummyWidget,
                 color: Colors.lightBlueAccent,
                 onPressed: (() {
-                  taskListData.createNewTask(textEditingController.text);
+                  if (textEditingController.text.isNotEmpty) {
+                    taskListData.createNewTask(textEditingController.text);
+                  }
                   Navigator.of(context).pop();
                 }),
               ),
