@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey_flutter/models/task_list.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  AddTaskScreen({this.createNewTask});
-
-  final Function createNewTask;
   final TextEditingController textEditingController = TextEditingController();
 
   @override
@@ -35,18 +34,21 @@ class AddTaskScreen extends StatelessWidget {
               autofocus: true,
               textAlign: TextAlign.center,
             ),
-            FlatButton(
+            Consumer<TaskList>(
+              builder: (context, taskListData, dummyWidget) => FlatButton(
+                child: dummyWidget,
+                color: Colors.lightBlueAccent,
+                onPressed: (() {
+                  taskListData.createNewTask(textEditingController.text);
+                  Navigator.of(context).pop();
+                }),
+              ),
               child: Text(
                 'Add',
                 style: TextStyle(
                   color: Colors.white,
                 ),
               ),
-              color: Colors.lightBlueAccent,
-              onPressed: (() {
-                createNewTask(textEditingController.text);
-                Navigator.of(context).pop();
-              }),
             ),
           ],
         ),

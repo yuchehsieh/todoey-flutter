@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:todoey_flutter/models/task.dart';
+import 'package:todoey_flutter/models/task_list.dart';
 import 'package:todoey_flutter/widgets/task_tile.dart';
+import 'package:provider/provider.dart';
 
-class TaskList extends StatelessWidget {
-  TaskList({this.tasks, this.toggleTaskDone});
-
-  final List<Task> tasks;
-  final Function toggleTaskDone;
-
+class TaskListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemBuilder: (_, index) => TaskTile(
-        taskTitle: tasks[index].name,
-        isChecked: tasks[index].isDone,
-        toggleChecked: (_) => toggleTaskDone(index),
-      ),
-      itemCount: tasks.length,
+    return Consumer<TaskList>(
+      builder: ((context, taskListData, _) {
+        return ListView.builder(
+          itemBuilder: (context, index) => ChangeNotifierProvider.value(
+            value: taskListData.tasks[index],
+            child: TaskTile(),
+          ),
+          itemCount: taskListData.tasks.length,
+        );
+      }),
     );
   }
 }

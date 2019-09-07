@@ -1,29 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey_flutter/models/task.dart';
 
 class TaskTile extends StatelessWidget {
-  TaskTile({
-    this.isChecked,
-    this.taskTitle,
-    this.toggleChecked,
-  });
-
-  final String taskTitle;
-  final bool isChecked;
-  final Function toggleChecked;
-
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(
-        taskTitle,
-        style: TextStyle(
-          decoration: isChecked ? TextDecoration.lineThrough : null,
-        ),
-      ),
-      trailing: Checkbox(
-        onChanged: toggleChecked,
-        value: isChecked,
-      ),
+    return Consumer<Task>(
+      builder: ((context, taskData, _) {
+        return ListTile(
+          title: Text(
+            taskData.name,
+            style: TextStyle(
+              decoration: taskData.isDone ? TextDecoration.lineThrough : null,
+            ),
+          ),
+          trailing: Checkbox(
+            onChanged: (_) => taskData.toggleDone(),
+            value: taskData.isDone,
+          ),
+        );
+      }),
     );
   }
 }
