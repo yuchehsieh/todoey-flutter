@@ -11,7 +11,10 @@ class TaskListWidget extends StatelessWidget {
         return ListView.builder(
           itemBuilder: (context, index) => ChangeNotifierProvider.value(
             value: taskListData.tasks[index],
-            child: TaskTile(),
+            child: TaskTile(
+              onLongPress: () =>
+                  taskListData.deleteTask(taskListData.tasks[index]),
+            ),
           ),
           itemCount: taskListData.taskCount,
         );

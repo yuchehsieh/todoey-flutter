@@ -27,6 +27,11 @@ class TaskList with ChangeNotifier {
     notifyListeners();
   }
 
+  void deleteTask(Task taskToDelete) {
+    _tasks.remove(taskToDelete);
+    notifyListeners();
+  }
+
   /// Teacher's version of toggle the checking state
   /// goal is to keep TaskTile simple
   void updateTask(Task task) {
